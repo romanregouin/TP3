@@ -172,7 +172,8 @@ psommet_t trouver_sommet(pgraphe_t g, int r)
   if (!g)
     return NULL;
   psommet_t res;
-  while (g->)
+  while (g)
+    ;
 }
 
 void afficher_graphe_largeur(pgraphe_t g, int r)
@@ -183,7 +184,7 @@ void afficher_graphe_largeur(pgraphe_t g, int r)
   pfile_t f = creer_file();
   psommet_t s = trouver_sommet(g, r);
   enfiler(f, g);
-  while ()
+  while (g)
 
     return;
 }
