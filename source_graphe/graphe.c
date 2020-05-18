@@ -170,9 +170,9 @@ void afficher_graphe_largeur(pgraphe_t g, int r)
   /*
     afficher les sommets du graphe avec un parcours en largeur
   */
-  pfile_t cr
+  pfile_t cr;
 
-      return;
+  return;
 }
 
 void afficher_graphe_profondeur(pgraphe_t g, int r)
