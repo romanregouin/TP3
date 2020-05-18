@@ -177,11 +177,55 @@ void afficher_graphe_largeur(pgraphe_t g, int r)
 
 void afficher_graphe_profondeur(pgraphe_t g, int r)
 {
-  /*
-    afficher les sommets du graphe avec un parcours en profondeur
-  */
+  pgraphe_t start = NULL;
+  pgraphe_t courant = g;
+  //initialisation des champs deja_connu de chaque sommets a faux
+  if (courant != NULL)
+  {
+    if (courant->label == r)
+    {
+      start = g;
+    }
+    courant->deja_parcouru = 0;
+    while (courant->sommet_suivant != NULL)
+    {
+      if (courant->label == r)
+      {
+        start = g;
+      }
+      courant->deja_parcouru = 0;
+      courant = courant->sommet_suivant;
+    }
+    parcour_profondeur(start);
+    courant = g;
+    while ((courant != NULL))
+    {
+      if (!(courant->deja_parcouru))
+      {
+        parcour_profondeur(courant);
+      }
+      courant = courant->sommet_suivant;
+    }
+  }
+}
 
-  return;
+void parcour_profondeur(pgraphe_t g)
+{
+  if (g == NULL)
+  {
+    return;
+  }
+  g->deja_parcouru = 1;
+  printf("sommet : %d parcouru\n", g->label);
+  parc_t courant = g->liste_arcs;
+  while (courant != NULL)
+  {
+    if (!courant->deja_parcouru)
+    {
+      parcour_profondeur(courant->arc_suivant);
+    }
+    courant = courant->arc_suivant;
+  }
 }
 
 void algo_dijkstra(pgraphe_t g, int r)
