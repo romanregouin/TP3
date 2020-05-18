@@ -1,4 +1,5 @@
-
+#ifndef _FILE_H_
+#define _FILE_H_
 #define MAX_FILE_SIZE 32
 #include "graphe.h"
 
@@ -20,3 +21,5 @@ int file_pleine(pfile_t f);
 psommet_t defiler(pfile_t f);
 
 int enfiler(pfile_t f, psommet_t p);
+
+#endif
