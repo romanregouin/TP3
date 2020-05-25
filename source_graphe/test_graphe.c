@@ -35,5 +35,5 @@ int main(int argc, char **argv) {
 
   ecrire_graphe_colorie(g);
 
-  afficher_graphe_largeur(g, 1);
+  afficher_graphe_profondeur2(g, 1);
 }

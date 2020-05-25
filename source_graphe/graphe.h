@@ -7,27 +7,25 @@ typedef struct a *parc_t;
   un graphe est constitué d'une liste de sommets
 */
 
-typedef struct s
-{
-  int label;                // label du sommet
-  parc_t liste_arcs;        // arcs sortants du sommet
-  struct s *sommet_suivant; // sommet suivant dans le graphe
-  int couleur;              // couleur du sommet
+typedef struct s {
+  int label;                 // label du sommet
+  parc_t liste_arcs;         // arcs sortants du sommet
+  struct s *sommet_suivant;  // sommet suivant dans le graphe
+  int couleur;               // couleur du sommet
   int deja_parcouru;
 } sommet_t, *psommet_t;
 
 /*
   definition des types arc et pointeur d'arc
   Les arcs sortants d'un sommet sont chainés
-  Pour chaque arc, il y a un poids qui peut par exemple correspondre a une distance
+  Pour chaque arc, il y a un poids qui peut par exemple correspondre a une
+  distance
 */
 
-typedef struct a
-{
-
-  int poids;             // poids de l arc
-  psommet_t dest;        // pointeur sommet destinataire
-  struct a *arc_suivant; // arc suivant
+typedef struct a {
+  int poids;              // poids de l arc
+  psommet_t dest;         // pointeur sommet destinataire
+  struct a *arc_suivant;  // arc suivant
   int deja_parcouru;
 
 } arc_t, *parc_t;
@@ -53,6 +51,10 @@ void ecrire_graphe(psommet_t p);
 void ecrire_graphe_colorie(psommet_t p);
 
 int colorier_graphe(pgraphe_t g);
+
+void afficher_graphe_profondeur2(pgraphe_t g, int r);
+
+void afficher_graphe_profondeur_rec(pgraphe_t g);
 
 void afficher_graphe_profondeur(pgraphe_t g, int r);
 

@@ -154,13 +154,35 @@ void afficher_graphe_largeur(pgraphe_t g, int r) {
   enfiler(f, tmp);
   while (!file_vide(f)) {
     tmp = defiler(f);
-    printf("%d", tmp->label);
+    if (!tmp->deja_parcouru) printf("%d", tmp->label);
+    tmp->deja_parcouru = 1;
     parc_t arc = tmp->liste_arcs;
     while (arc != NULL) {
-      if (!arc->dest->deja_parcouru) enfiler(f, arc->dest);
+      if (!arc->dest->deja_parcouru) {
+        enfiler(f, arc->dest);
+      }
+      arc = arc->arc_suivant;
     }
   }
 
+  return;
+}
+
+void afficher_graphe_profondeur2(pgraphe_t g, int r) {
+  psommet_t tmp = chercher_sommet(g, r);
+  afficher_graphe_profondeur_rec(tmp);
+  return;
+}
+
+void afficher_graphe_profondeur_rec(pgraphe_t g) {
+  if (g == NULL || g->deja_parcouru) return;
+  printf("%d ", g->label);
+  g->deja_parcouru = 1;
+  parc_t arc = g->liste_arcs;
+  while (arc != NULL) {
+    afficher_graphe_profondeur_rec(arc->dest);
+    arc = arc->arc_suivant;
+  }
   return;
 }
 
@@ -168,7 +190,21 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
   /*
     afficher les sommets du graphe avec un parcours en profondeur
   */
-
+  ppile_t f = creer_pile();
+  psommet_t tmp = chercher_sommet(g, r);
+  empiler(f, tmp);
+  while (!pile_vide(f)) {
+    tmp = depiler(f);
+    if (!tmp->deja_parcouru) printf("%d", tmp->label);
+    tmp->deja_parcouru = 1;
+    parc_t arc = tmp->liste_arcs;
+    while (arc != NULL) {
+      if (!arc->dest->deja_parcouru) {
+        empiler(f, arc->dest);
+      }
+      arc = arc->arc_suivant;
+    }
+  }
   return;
 }
 
