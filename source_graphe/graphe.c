@@ -343,11 +343,17 @@ int degre_maximal_graphe(pgraphe_t g) {
 }
 
 int degre_minimal_graphe(pgraphe_t g) {
-  /*
-    Min des degres des sommets du graphe g
-  */
-
-  return 0;
+  int min = INT_MAX;
+  psommet_t courant = g;
+  while (g != NULL) {
+    int tmp =
+        degre_entrant_sommet(g, courant) + degre_sortant_sommet(g, courant);
+    if (tmp < min) {
+      min = tmp;
+    }
+    courant = courant->sommet_suivant;
+  }
+  return min;
 }
 
 int independant(pgraphe_t g) {
