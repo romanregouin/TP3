@@ -31,9 +31,11 @@ int main(int argc, char **argv) {
 
   nc = colorier_graphe(g);
 
-  afficher_graphe_profondeur(g, 1);
-
   printf("nombre chromatique graphe = %d\n", nc);
 
   ecrire_graphe_colorie(g);
+
+  afficher_graphe_profondeur2(g, 1);
+
+  // afficher_graphe_profondeur(g, 1);
 }

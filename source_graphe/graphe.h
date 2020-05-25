@@ -52,6 +52,10 @@ void ecrire_graphe_colorie(psommet_t p);
 
 int colorier_graphe(pgraphe_t g);
 
+void afficher_graphe_profondeur2(pgraphe_t g, int r);
+
+void afficher_graphe_profondeur_rec(pgraphe_t g);
+
 void afficher_graphe_profondeur(pgraphe_t g, int r);
 
 void parcour_profondeur(pgraphe_t g);

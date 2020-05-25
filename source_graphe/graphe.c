@@ -146,13 +146,20 @@ int colorier_graphe(pgraphe_t g) {
 }
 
 void afficher_graphe_largeur(pgraphe_t g, int r) {
-  /*
-    afficher les sommets du graphe avec un parcours en largeur
-  */
-  pfile_t f = creer_file();
-  psommet_t s = chercher_sommet(g, r);
-  enfiler(f, g);
-  while (g) return;
+  psommet_t tmp = chercher_sommet(g, r);
+  enfiler(f, tmp);
+  while (!file_vide(f)) {
+    tmp = defiler(f);
+    if (!tmp->deja_parcouru) printf("%d", tmp->label);
+    tmp->deja_parcouru = 1;
+    parc_t arc = tmp->liste_arcs;
+    while (arc != NULL) {
+      if (!arc->dest->deja_parcouru) {
+        enfiler(f, arc->dest);
+      }
+      arc = arc->arc_suivant;
+    }
+  }
 }
 
 void afficher_graphe_profondeur_V2(pgraphe_t g, int r) {
@@ -192,75 +199,113 @@ void parcour_profondeur_V2(pgraphe_t g) {
     }
     courant = courant->arc_suivant;
   }
-}
+  void afficher_graphe_profondeur2(pgraphe_t g, int r) {
+    psommet_t tmp = chercher_sommet(g, r);
+    afficher_graphe_profondeur_rec(tmp);
+    return;
+  }
 
-void algo_dijkstra(pgraphe_t g, int r) {
+  void afficher_graphe_profondeur_rec(pgraphe_t g) {
+    if (g == NULL || g->deja_parcouru) return;
+    printf("%d ", g->label);
+    g->deja_parcouru = 1;
+    parc_t arc = g->liste_arcs;
+    while (arc != NULL) {
+      afficher_graphe_profondeur_rec(arc->dest);
+      arc = arc->arc_suivant;
+    }
+    return;
+  }
+
+  void afficher_graphe_profondeur(pgraphe_t g, int r) {
+    /*
+      afficher les sommets du graphe avec un parcours en profondeur
+    */
+    ppile_t f = creer_pile();
+    psommet_t tmp = chercher_sommet(g, r);
+    empiler(f, tmp);
+    while (!pile_vide(f)) {
+      tmp = depiler(f);
+      if (!tmp->deja_parcouru) printf("%d", tmp->label);
+      tmp->deja_parcouru = 1;
+      parc_t arc = tmp->liste_arcs;
+      while (arc != NULL) {
+        if (!arc->dest->deja_parcouru) {
+          empiler(f, arc->dest);
+        }
+        arc = arc->arc_suivant;
+      }
+    }
+    return;
+  }
+
+  void algo_dijkstra(pgraphe_t g, int r) {
+    /*
+      algorithme de dijkstra
+      des variables ou des chanmps doivent etre ajoutees dans les structures.
+    */
+
+    return;
+  }
+
+  // ======================================================================
+
+  int degre_sortant_sommet(pgraphe_t g, psommet_t s) {
+    /*
+      Cette fonction retourne le nombre d'arcs sortants
+      du sommet n dans le graphe g
+    */
+
+    return 0;
+  }
+
+  int degre_entrant_sommet(pgraphe_t g, psommet_t s) {
+    /*
+      Cette fonction retourne le nombre d'arcs entrants
+      dans le noeud n dans le graphe g
+    */
+
+    return 0;
+  }
+
+  int degre_maximal_graphe(pgraphe_t g) {
+    /*
+      Max des degres des sommets du graphe g
+    */
+
+    return 0;
+  }
+
+  int degre_minimal_graphe(pgraphe_t g) {
+    /*
+      Min des degres des sommets du graphe g
+    */
+
+    return 0;
+  }
+
+  int independant(pgraphe_t g) {
+    /* Les aretes du graphe n'ont pas de sommet en commun */
+
+    return 0;
+  }
+
+  int complet(pgraphe_t g) {
+    /* Toutes les paires de sommet du graphe sont jointes par un arc */
+
+    return 0;
+  }
+
+  int regulier(pgraphe_t g) {
+    /*
+       graphe regulier: tous les sommets ont le meme degre
+       g est le ponteur vers le premier sommet du graphe
+       renvoie 1 si le graphe est régulier, 0 sinon
+    */
+
+    return 0;
+  }
+
   /*
-    algorithme de dijkstra
-    des variables ou des chanmps doivent etre ajoutees dans les structures.
+    placer les fonctions de l'examen 2017 juste apres
   */
-
-  return;
-}
-
-// ======================================================================
-
-int degre_sortant_sommet(pgraphe_t g, psommet_t s) {
-  /*
-    Cette fonction retourne le nombre d'arcs sortants
-    du sommet n dans le graphe g
-  */
-
-  return 0;
-}
-
-int degre_entrant_sommet(pgraphe_t g, psommet_t s) {
-  /*
-    Cette fonction retourne le nombre d'arcs entrants
-    dans le noeud n dans le graphe g
-  */
-
-  return 0;
-}
-
-int degre_maximal_graphe(pgraphe_t g) {
-  /*
-    Max des degres des sommets du graphe g
-  */
-
-  return 0;
-}
-
-int degre_minimal_graphe(pgraphe_t g) {
-  /*
-    Min des degres des sommets du graphe g
-  */
-
-  return 0;
-}
-
-int independant(pgraphe_t g) {
-  /* Les aretes du graphe n'ont pas de sommet en commun */
-
-  return 0;
-}
-
-int complet(pgraphe_t g) {
-  /* Toutes les paires de sommet du graphe sont jointes par un arc */
-
-  return 0;
-}
-
-int regulier(pgraphe_t g) {
-  /*
-     graphe regulier: tous les sommets ont le meme degre
-     g est le ponteur vers le premier sommet du graphe
-     renvoie 1 si le graphe est régulier, 0 sinon
-  */
-
-  return 0;
-}
-
-/*
-  placer les fonctions de l'examen 2017 juste apres
-*/
