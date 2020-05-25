@@ -249,12 +249,43 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
 }
 
 void algo_dijkstra(pgraphe_t g, int r) {
-  /*
-    algorithme de dijkstra
-    des variables ou des chanmps doivent etre ajoutees dans les structures.
-  */
-
+  psommet_t start = chercher_sommet(g, r);
+  start->etiq = 0;
+  psommet_t next = traitement_dijkstra(start);
+  while (next != NULL) {
+    next = traitement_dijkstra(next);
+  }
   return;
+}
+
+psommet_t traitement_dijkstra(psommet_t sommet) {
+  parc_t arc_courant = sommet->liste_arcs;
+  psommet_t next_traitement = NULL;
+  while (arc_courant != NULL) {
+    if (arc_courant->dest->etiq > arc_courant->poids + sommet->etiq) {
+      arc_courant->dest->etiq = arc_courant->poids + sommet->etiq;
+      if ((next_traitement == NULL) ||
+          (next_traitement->etiq > arc_courant->poids + sommet->etiq)) {
+        next_traitement = arc_courant->dest;
+      }
+    }
+    arc_courant = arc_courant->arc_suivant;
+  }
+  sommet->traite = 1;
+  if (next_traitement == NULL || next_traitement->traite) {
+    return NULL;
+  }
+  return next_traitement;
+}
+
+void debugDijikstra(pgraphe_t g, int r) {
+  psommet_t sommet_courant = g;
+  printf("LANCE AVEC LE SOMMET : %d\n", r);
+  while (sommet_courant != NULL) {
+    printf("Sommet : %d , etiq : %d\n", sommet_courant->label,
+           sommet_courant->etiq);
+    sommet_courant = sommet_courant->sommet_suivant;
+  }
 }
 
 // ======================================================================

@@ -13,6 +13,8 @@ typedef struct s {
   struct s *sommet_suivant;  // sommet suivant dans le graphe
   int couleur;               // couleur du sommet
   int deja_parcouru;
+  int etiq;
+  int traite;
 } sommet_t, *psommet_t;
 
 /*
@@ -69,4 +71,8 @@ void afficher_graphe_profondeur2(pgraphe_t g, int r);
 void parcour_profondeur_V2(pgraphe_t g);
 
 void afficher_graphe_profondeur_V2(pgraphe_t g, int r);
+
+psommet_t traitement_dijkstra(psommet_t sommet);
+
+void debugDijikstra(pgraphe_t g, int r);
 #endif

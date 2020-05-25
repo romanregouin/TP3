@@ -42,4 +42,9 @@ int main(int argc, char **argv) {
   printf("ROMAN Version : \n");
 
   afficher_graphe_profondeur_V2(g, 5);
+
+  printf("DIJIKSTRA : \n");
+
+  algo_dijkstra(g, 1);
+  debugDijikstra(g, 1);
 }

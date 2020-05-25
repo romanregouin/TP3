@@ -26,6 +26,8 @@ void lire_graphe(char *file_name, pgraphe_t *g) {
     c = (psommet_t)malloc(sizeof(sommet_t));
     c->sommet_suivant = NULL;
     c->couleur = 0;
+    c->etiq = INT_MAX;
+    c->traite = 0;
     if (fscanf(f, "%d", &c->label) == EOF) {
       fprintf(stderr, "erreur dans le contenu du fichier label %d\n", c->label);
       exit(-1);
