@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "data/gr0",
+                "data/test_complet",
                 "0"
             ],
             "stopAtEntry": false,

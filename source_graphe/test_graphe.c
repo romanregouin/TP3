@@ -47,4 +47,6 @@ int main(int argc, char **argv) {
   printf("DIJIKSTRA : \n");
 
   algo_dijkstra(g, label);
+
+  if (complet(g)) printf("Le graphe est Complet ! \n");
 }

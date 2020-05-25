@@ -75,4 +75,6 @@ void afficher_graphe_profondeur_V2(pgraphe_t g, int r);
 psommet_t traitement_dijkstra(psommet_t sommet);
 
 void debugDijikstra(pgraphe_t g, int r);
+
+int complet(pgraphe_t g);
 #endif

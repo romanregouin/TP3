@@ -332,7 +332,6 @@ int degre_maximal_graphe(pgraphe_t g) {
   */
   int max = 0;
   int tmp;
-  int arc_sortant = 0;
   psommet_t s = g;
   while (s != NULL) {
     tmp = degre_entrant_sommet(g, s) + degre_sortant_sommet(g, s);
@@ -358,20 +357,30 @@ int degre_minimal_graphe(pgraphe_t g) {
 
 int independant(pgraphe_t g) {
   /* Les aretes du graphe n'ont pas de sommet en commun */
-  while (g != NULL) {
-    parc_t arc = g->liste_arcs;
-    while (arc != NULL) {
-      if (arc->dest == s) arc_sortant++;
-    }
-  }
-  return arc_sortant;
+
   return 1;
 }
 
 int complet(pgraphe_t g) {
-  /* Toutes les paires de sommet du graphe sont jointes par un arc */
-
-  return 0;
+  psommet_t s = g;
+  int nb_sommet = 0;
+  while (s != NULL) {
+    nb_sommet++;
+    s = s->sommet_suivant;
+  }
+  s = g;
+  int tmp;
+  while (s != NULL) {
+    parc_t arc = s->liste_arcs;
+    tmp = 0;
+    while (arc != NULL) {
+      if (arc->dest != s) tmp++;
+      arc = arc->arc_suivant;
+    }
+    if (tmp != nb_sommet - 1) return 0;
+    s = s->sommet_suivant;
+  }
+  return 1;
 }
 
 int regulier(pgraphe_t g) {
