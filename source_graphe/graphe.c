@@ -165,14 +165,28 @@ int colorier_graphe(pgraphe_t g)
   return max_couleur;
 }
 
+psommet_t trouver_sommet(pgraphe_t g, int r)
+{
+  if (g && g->label == r)
+    return g;
+  if (!g)
+    return NULL;
+  psommet_t res;
+  while (g)
+    ;
+}
+
 void afficher_graphe_largeur(pgraphe_t g, int r)
 {
   /*
     afficher les sommets du graphe avec un parcours en largeur
   */
-  pfile_t cr;
+  pfile_t f = creer_file();
+  psommet_t s = trouver_sommet(g, r);
+  enfiler(f, g);
+  while (g)
 
-  return;
+    return;
 }
 
 void afficher_graphe_profondeur(pgraphe_t g, int r)
