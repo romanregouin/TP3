@@ -145,25 +145,17 @@ int colorier_graphe(pgraphe_t g) {
   return max_couleur;
 }
 
-psommet_t trouver_sommet(pgraphe_t g, int r) {
-  if (g && g->label == r) return g;
-  if (!g) return NULL;
-  psommet_t res;
-  while (g)
-    ;
-}
-
 void afficher_graphe_largeur(pgraphe_t g, int r) {
   /*
     afficher les sommets du graphe avec un parcours en largeur
   */
   pfile_t f = creer_file();
-  psommet_t s = trouver_sommet(g, r);
+  psommet_t s = chercher_sommet(g, r);
   enfiler(f, g);
   while (g) return;
 }
 
-void afficher_graphe_profondeur(pgraphe_t g, int r) {
+void afficher_graphe_profondeur_V2(pgraphe_t g, int r) {
   pgraphe_t start = NULL;
   pgraphe_t courant = g;
   // initialisation des champs deja_connu de chaque sommets a faux
@@ -187,7 +179,7 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
   }
 }
 
-void parcour_profondeur(pgraphe_t g) {
+void parcour_profondeur_V2(pgraphe_t g) {
   if (g == NULL) {
     return;
   }
@@ -196,7 +188,7 @@ void parcour_profondeur(pgraphe_t g) {
   parc_t courant = g->liste_arcs;
   while (courant != NULL) {
     if (!courant->deja_parcouru) {
-      parcour_profondeur(courant->arc_suivant);
+      parcour_profondeur(courant->arc_suivant->dest);
     }
     courant = courant->arc_suivant;
   }
