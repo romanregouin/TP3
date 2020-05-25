@@ -35,7 +35,11 @@ int main(int argc, char **argv) {
 
   ecrire_graphe_colorie(g);
 
-  afficher_graphe_profondeur2(g, 1);
+  printf("LIAM Version : \n");
 
-  // afficher_graphe_profondeur(g, 1);
+  afficher_graphe_profondeur2(g, 5);
+
+  printf("ROMAN Version : \n");
+
+  afficher_graphe_profondeur_V2(g, 5);
 }

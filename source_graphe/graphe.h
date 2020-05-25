@@ -58,10 +58,15 @@ void afficher_graphe_profondeur_rec(pgraphe_t g);
 
 void afficher_graphe_profondeur(pgraphe_t g, int r);
 
-void parcour_profondeur(pgraphe_t g);
-
 void afficher_graphe_largeur(pgraphe_t g, int r);
 
 void algo_dijkstra(pgraphe_t g, int r);
 
+void afficher_graphe_profondeur_rec(pgraphe_t g);
+
+void afficher_graphe_profondeur2(pgraphe_t g, int r);
+
+void parcour_profondeur_V2(pgraphe_t g);
+
+void afficher_graphe_profondeur_V2(pgraphe_t g, int r);
 #endif
