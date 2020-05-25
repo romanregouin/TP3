@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "data/gr_planning"
+                "data/gr0"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

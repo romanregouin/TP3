@@ -250,11 +250,16 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
 
 void algo_dijkstra(pgraphe_t g, int r) {
   psommet_t start = chercher_sommet(g, r);
+  if (start == NULL) {
+    printf("Le sommet demandé : %d n'existe pas !\n", r);
+    return;
+  }
   start->etiq = 0;
   psommet_t next = traitement_dijkstra(start);
   while (next != NULL) {
     next = traitement_dijkstra(next);
   }
+  debugDijikstra(g, r);
   return;
 }
 

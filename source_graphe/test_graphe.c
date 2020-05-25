@@ -45,6 +45,5 @@ int main(int argc, char **argv) {
 
   printf("DIJIKSTRA : \n");
 
-  algo_dijkstra(g, 1);
-  debugDijikstra(g, 1);
+  algo_dijkstra(g, 0);
 }
