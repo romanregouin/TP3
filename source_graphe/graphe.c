@@ -300,8 +300,13 @@ int degre_sortant_sommet(pgraphe_t g, psommet_t s) {
     Cette fonction retourne le nombre d'arcs sortants
     du sommet n dans le graphe g
   */
-
-  return 0;
+  int arc_sortant = 0;
+  parc_t arc = g->liste_arcs;
+  while (arc != NULL) {
+    arc_sortant++;
+    arc = arc->arc_suivant;
+  }
+  return arc_sortant;
 }
 
 int degre_entrant_sommet(pgraphe_t g, psommet_t s) {
@@ -309,16 +314,31 @@ int degre_entrant_sommet(pgraphe_t g, psommet_t s) {
     Cette fonction retourne le nombre d'arcs entrants
     dans le noeud n dans le graphe g
   */
-
-  return 0;
+  int arc_entrant = 0;
+  while (g != NULL) {
+    parc_t arc = g->liste_arcs;
+    while (arc != NULL) {
+      if (arc->dest == s) arc_entrant++;
+      arc = arc->arc_suivant;
+    }
+    g = g->sommet_suivant;
+  }
+  return arc_entrant;
 }
 
 int degre_maximal_graphe(pgraphe_t g) {
   /*
     Max des degres des sommets du graphe g
   */
-
-  return 0;
+  int max = 0;
+  int tmp;
+  int arc_sortant = 0;
+  psommet_t s = g;
+  while (s != NULL) {
+    tmp = degre_entrant_sommet(g, s) + degre_sortant_sommet(g, s);
+    if (tmp > max) max = tmp;
+  }
+  return max;
 }
 
 int degre_minimal_graphe(pgraphe_t g) {
