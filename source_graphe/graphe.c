@@ -396,3 +396,59 @@ int regulier(pgraphe_t g) {
 /*
   placer les fonctions de l'examen 2017 juste apres
 */
+
+//suppose que les label sont existant dans le graphe et que la suite de labels est accesible via des arcs
+pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
+  pchemin_t chemin = (chemin_t*)malloc(sizeof(chemin_t));
+  psommet_t sommetCourant = g;
+  while(sommetCourant->label!=labels[0]){
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  chemin->start = sommetCourant;
+  chemin->nb = nb;
+  int nbSommetTraite = 1;
+  parc_t parc = NULL;
+  parc_t arcCourant = sommetCourant->liste_arcs;
+  while(nbSommetTraite<nb){
+    parc = (parc_t)malloc(sizeof(arc_t));
+    while(arcCourant->dest->label!=labels[nbSommetTraite]){
+      arcCourant = arcCourant->arc_suivant;
+    }
+    parc->arc_suivant = NULL;
+    parc->deja_parcouru = arcCourant->deja_parcouru;
+    parc->dest = arcCourant->dest;
+    parc->poids = arcCourant->poids;
+    parc_t tmp = chemin->arcs;
+    if(tmp==NULL){
+      chemin->arcs = parc;
+    }else{
+      while(tmp->arc_suivant!=NULL){
+        tmp = tmp->arc_suivant;
+      }
+      tmp->arc_suivant = parc;
+    }
+    sommetCourant = parc->dest;
+    nbSommetTraite++;
+    arcCourant = sommetCourant->liste_arcs;
+  }
+  return chemin;
+}
+
+int elementaire (pchemin_t c){
+  int* alreadySeen = malloc(sizeof(int));
+  int i = 1;
+  alreadySeen[0] = c->start;
+  parc_t arcCourant = c->arcs;
+  while(arcCourant!=NULL){
+    for(int j=0;j<i;j++){
+      if(alreadySeen[j]==arcCourant->dest->label){
+        return 0;
+      }
+    }
+    i++;
+    realloc(alreadySeen,i*sizeof(int));
+    alreadySeen[i-1] = arcCourant->dest->label;
+    arcCourant = arcCourant->arc_suivant;
+  }
+  return 1;
+}

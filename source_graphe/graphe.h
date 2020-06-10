@@ -39,6 +39,7 @@ typedef struct a {
 typedef psommet_t pgraphe_t;
 
 typedef struct chemin {
+  int nb;
   psommet_t start;
   parc_t arcs;
 } chemin_t, *pchemin_t;
@@ -82,4 +83,8 @@ psommet_t traitement_dijkstra(psommet_t sommet);
 void debugDijikstra(pgraphe_t g, int r);
 
 int complet(pgraphe_t g);
+
+pchemin_t creerChemin(pgraphe_t g, int* labels, int nb);
+
+int elementaire (pchemin_t c);
 #endif

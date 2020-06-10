@@ -49,4 +49,10 @@ int main(int argc, char **argv) {
   algo_dijkstra(g, label);
 
   if (complet(g)) printf("Le graphe est Complet ! \n");
+
+  int* labels = malloc(4*sizeof(int));
+  labels[0] = 0; labels [1] = 2; labels[2] = 8; labels[3] = 5;
+
+  pchemin_t chemin = creerChemin(g,labels,4);
+  int test = elementaire(chemin);
 }
