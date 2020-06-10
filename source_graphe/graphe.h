@@ -77,4 +77,18 @@ psommet_t traitement_dijkstra(psommet_t sommet);
 void debugDijikstra(pgraphe_t g, int r);
 
 int complet(pgraphe_t g);
+
+int degre_sortant_sommet(pgraphe_t g, psommet_t s);
+
+int degre_entrant_sommet(pgraphe_t g, psommet_t s);
+
+int degre_maximal_graphe(pgraphe_t g);
+
+int degre_minimal_graphe(pgraphe_t g);
+
+int independant(pgraphe_t g);
+
+int complet(pgraphe_t g);
+
+int regulier(pgraphe_t g);
 #endif

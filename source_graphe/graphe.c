@@ -300,8 +300,13 @@ int degre_sortant_sommet(pgraphe_t g, psommet_t s) {
     Cette fonction retourne le nombre d'arcs sortants
     du sommet n dans le graphe g
   */
+  psommet_t parcours = g;
+  while (parcours != s) {
+    if (parcours == NULL) return 0;
+    parcours = parcours->sommet_suivant;
+  }
   int arc_sortant = 0;
-  parc_t arc = g->liste_arcs;
+  parc_t arc = parcours->liste_arcs;
   while (arc != NULL) {
     arc_sortant++;
     arc = arc->arc_suivant;
@@ -344,7 +349,7 @@ int degre_maximal_graphe(pgraphe_t g) {
 int degre_minimal_graphe(pgraphe_t g) {
   int min = INT_MAX;
   psommet_t courant = g;
-  while (g != NULL) {
+  while (courant != NULL) {
     int tmp =
         degre_entrant_sommet(g, courant) + degre_sortant_sommet(g, courant);
     if (tmp < min) {
@@ -357,8 +362,14 @@ int degre_minimal_graphe(pgraphe_t g) {
 
 int independant(pgraphe_t g) {
   /* Les aretes du graphe n'ont pas de sommet en commun */
-
-  return 1;
+  if (g == NULL) return 1;
+  if (g->liste_arcs != NULL) {
+    if (g->liste_arcs->arc_suivant != NULL) return 0;
+    if (g->liste_arcs->dest->liste_arcs != NULL &&
+        g->liste_arcs->dest->liste_arcs->dest != g)
+      return 0;
+  }
+  return independant(g->sommet_suivant);
 }
 
 int complet(pgraphe_t g) {
@@ -389,7 +400,7 @@ int regulier(pgraphe_t g) {
      g est le ponteur vers le premier sommet du graphe
      renvoie 1 si le graphe est régulier, 0 sinon
   */
-
+  if (degre_maximal_graphe(g) == degre_minimal_graphe(g)) return 1;
   return 0;
 }
 
