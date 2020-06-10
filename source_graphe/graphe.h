@@ -84,11 +84,9 @@ void debugDijikstra(pgraphe_t g, int r);
 
 int complet(pgraphe_t g);
 
-<<<<<<< HEAD
 pchemin_t creerChemin(pgraphe_t g, int* labels, int nb);
 
 int elementaire (pchemin_t c);
-=======
 int degre_sortant_sommet(pgraphe_t g, psommet_t s);
 
 int degre_entrant_sommet(pgraphe_t g, psommet_t s);
@@ -102,5 +100,4 @@ int independant(pgraphe_t g);
 int complet(pgraphe_t g);
 
 int regulier(pgraphe_t g);
->>>>>>> dd50827fb0299953886ed942846e03985eacbbd8
 #endif

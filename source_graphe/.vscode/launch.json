@@ -10,13 +10,8 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-<<<<<<< HEAD
                 "data/gr0",
                 "0"
-=======
-                "data/test_independant",
-                "1"
->>>>>>> dd50827fb0299953886ed942846e03985eacbbd8
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
