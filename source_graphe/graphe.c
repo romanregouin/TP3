@@ -248,6 +248,13 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
 }
 
 void algo_dijkstra(pgraphe_t g, int r) {
+  //initialisation des étiquettes pour gerer de multiple appel a algo_dijkstra
+  psommet_t courant = g;
+  while(courant!=NULL){
+    courant->etiq = INT_MAX;
+    courant->traite = 0;
+    courant = courant->sommet_suivant;
+  }
   psommet_t start = chercher_sommet(g, r);
   if (start == NULL) {
     printf("Le sommet demandé : %d n'existe pas !\n", r);
@@ -445,10 +452,10 @@ pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
 }
 
 void printChemin(pchemin_t c){
-  printf("Chemin : %d",c->start->label);
+  printf("Chemin de longeur %d : %d", longueur(c), c->start->label);
   parc_t courant = c->arcs;
   for(int i=0;i<c->nb-1;i++){
-    printf(" -> %d",courant->dest->label);
+    printf(" -(%d)> %d", courant->poids, courant->dest->label);
     courant = courant->arc_suivant;
   }
   printf("\n");
@@ -471,4 +478,47 @@ int elementaire (pchemin_t c){
     arcCourant = arcCourant->arc_suivant;
   }
   return 1;
+}
+
+int simple (pchemin_t c){
+  return 0;
+}
+
+int eulerien (pchemin_t c){
+  return 0;
+}
+
+int hamiltonien (pchemin_t c){
+  return 0;
+}
+
+int graphe_eulerien (pgraphe_t g){
+  return 0;
+}
+
+int graphe_hamiltonien (pgraphe_t g){
+  return 0;
+}
+
+int longueur (pchemin_t c){
+  int len = 0;
+  parc_t courant = c->arcs;
+  for(int i=0;i<c->nb-1;i++){
+    len += courant->poids;
+    courant = courant->arc_suivant;
+  }
+  return len;
+}
+
+int distance (pgraphe_t g, int label1, int label2){
+  algo_dijkstra(g,label1);
+  return (chercher_sommet(g,label2)->etiq);
+}
+
+int excentricite (pgraphe_t g, int label){
+  return 0;
+}
+
+int diametre (pgraphe_t g){
+  return 0;
 }

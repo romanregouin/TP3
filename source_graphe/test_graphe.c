@@ -51,13 +51,17 @@ int main(int argc, char **argv) {
   if (complet(g)) printf("Le graphe est Complet ! \n");
 
   int* labels = malloc(4*sizeof(int));
-  labels[0] = 1; labels [1] = 2; labels[2] = 1; labels[3] = 3;
+  labels[0] = 0; labels [1] = 2; labels[2] = 8; labels[3] = 5;
 
   pchemin_t chemin = creerChemin(g,labels,4);
   printChemin(chemin);
   if(elementaire(chemin)){
     printf("Le chemin est élémentaire\n");
   }
+  if(simple(chemin)){
+    printf("Le chemin est simple\n");
+  }
+  printf("La distance entre %d et %d est de %d \n", labels[0], labels[1], distance(g,labels[0],labels[1]));
   printf("Degre entrant du sommet %d : %d \n", label,
          degre_entrant_sommet(g, chercher_sommet(g, label)));
   printf("Degre sortant du sommet %d : %d \n", label,

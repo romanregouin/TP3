@@ -90,6 +90,24 @@ void printChemin(pchemin_t c);
 
 int elementaire (pchemin_t c);
 
+int simple (pchemin_t c);
+
+int eulerien (pchemin_t c);
+
+int hamiltonien (pchemin_t c);
+
+int graphe_eulerien (pgraphe_t g);
+
+int graphe_hamiltonien (pgraphe_t g);
+
+int distance (pgraphe_t g, int label1, int label2);
+
+int excentricite (pgraphe_t g, int label);
+
+int longueur (pchemin_t c);
+
+int diametre (pgraphe_t g);
+
 int degre_sortant_sommet(pgraphe_t g, psommet_t s);
 
 int degre_entrant_sommet(pgraphe_t g, psommet_t s);
