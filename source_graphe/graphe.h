@@ -86,7 +86,10 @@ int complet(pgraphe_t g);
 
 pchemin_t creerChemin(pgraphe_t g, int* labels, int nb);
 
+void printChemin(pchemin_t c);
+
 int elementaire (pchemin_t c);
+
 int degre_sortant_sommet(pgraphe_t g, psommet_t s);
 
 int degre_entrant_sommet(pgraphe_t g, psommet_t s);

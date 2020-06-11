@@ -1,22 +1,22 @@
-all: test_graphe
+CC = gcc
+CFLAGS = -g -Wall -Werror
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+EXE = test_graphe
 
-test_graphe: test_graphe.o graphe.o io_graphe.o pile.o file.o
-	gcc -g -o test_graphe test_graphe.o graphe.o io_graphe.o file.o pile.o
+all: $(EXE)
 
-graphe.o: graphe.c graphe.h
-	gcc -g -Wall -c graphe.c
+test_graphe: $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
 
-io_graphe.o: io_graphe.c graphe.h
-	gcc -g -Wall -c io_graphe.c
+%.o : %.c
+	$(CC) $(CFLAGS) -c $<
 
-pile.o: pile.c pile.h graphe.h
-	gcc -g -Wall -c pile.c
-
-file.o: file.c file.h graphe.h
-	gcc -g -Wall -c file.c
-
-test_graphe.o: test_graphe.c graphe.h
-	gcc -g 	-Wall -c test_graphe.c
+pile.o : pile.h graphe.h
+file.o : file.h graphe.h
+graphe.o : graphe.h
+test_graphe.o : graphe.h
+io_graphe.o : graphe.h
 
 clean:
-	rm -f *.o test_graphe  *~ data/*~
+	rm -f $(OBJ) $(EXE)  *~ data/*~

@@ -4,14 +4,13 @@
   (Pas de contrainte sur le nombre de noeuds des  graphes)
 */
 
-#include "graphe.h"
-
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "file.h"
 #include "pile.h"
+#include "graphe.h"
 
 psommet_t chercher_sommet(pgraphe_t g, int label) {
   psommet_t s;
@@ -445,10 +444,20 @@ pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
   return chemin;
 }
 
+void printChemin(pchemin_t c){
+  printf("Chemin : %d",c->start->label);
+  parc_t courant = c->arcs;
+  for(int i=0;i<c->nb-1;i++){
+    printf(" -> %d",courant->dest->label);
+    courant = courant->arc_suivant;
+  }
+  printf("\n");
+}
+
 int elementaire (pchemin_t c){
   int* alreadySeen = malloc(sizeof(int));
   int i = 1;
-  alreadySeen[0] = c->start;
+  alreadySeen[0] = c->start->label;
   parc_t arcCourant = c->arcs;
   while(arcCourant!=NULL){
     for(int j=0;j<i;j++){
@@ -457,7 +466,7 @@ int elementaire (pchemin_t c){
       }
     }
     i++;
-    realloc(alreadySeen,i*sizeof(int));
+    alreadySeen = realloc(alreadySeen,i*sizeof(int));
     alreadySeen[i-1] = arcCourant->dest->label;
     arcCourant = arcCourant->arc_suivant;
   }
