@@ -502,9 +502,33 @@ int simple(pchemin_t c) {
   return 1;
 }
 
-int eulerien(pchemin_t c) { return 0; }
+int eulerien(pgraphe_t g, pchemin_t c) { return 0; }
 
-int hamiltonien(pchemin_t c) { return 0; }
+int hamiltonien(pgraphe_t g, pchemin_t c) {
+  //initialise le champ traite a 0 pour chaque sommet pour pouvoir reperer ceux faisant parti du chemin ou non
+  psommet_t sommetCourant = g;
+  while (sommetCourant != NULL) {
+    sommetCourant->traite = 0;
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  //parcours du chemin en traitant les sommets rencontrés
+  sommetCourant = c->start;
+  sommetCourant->traite = 1;
+  parc_t arcCourant = c->arcs;
+  while(arcCourant != NULL){
+    arcCourant->dest->traite = 1;
+    arcCourant = arcCourant->arc_suivant;
+  }
+  //recherche sommet non traite
+  sommetCourant = g;
+  while (sommetCourant != NULL) {
+    if(!sommetCourant->traite){
+      return 0;
+    }
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  return 1;
+ }
 
 int graphe_eulerien(pgraphe_t g) { return 0; }
 

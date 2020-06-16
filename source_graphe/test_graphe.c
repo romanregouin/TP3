@@ -96,6 +96,10 @@ int main(int argc, char** argv) {
   printf("Exentricite du sommet %d : %d \n", label, excentricite(g,label));
   printf("Diametre du graphe : %d \n", diametre(g));
 
+  if (hamiltonien(g,chemin)) {
+    printf("Le chemin est hamiltonien\n");
+  }
+
   if (regulier(g)) printf("Le graphe est Regulier !  \n");
   if (independant(g)) printf("Le graphe est Independant ! \n");
 
