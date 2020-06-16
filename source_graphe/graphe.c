@@ -525,6 +525,32 @@ int distance(pgraphe_t g, int label1, int label2) {
   return (chercher_sommet(g, label2)->etiq);
 }
 
-int excentricite(pgraphe_t g, int label) { return 0; }
+int excentricite(pgraphe_t g, int label) { // se base sur l'utilisation de la fonction distance
+  int max = -1;
+  int d;
+  psommet_t s = g;
+  while(s != NULL){
+    if(s->label != label){
+      d = distance(g, label, s->label);
+      if(d > max && d < INT_MAX){ // car distance retourne INT_MAX s'il n'y a pas de chemin allant de label a s
+        max = d;
+      }
+    }
+    s = s->sommet_suivant;
+  }
+  return max;
+ }
 
-int diametre(pgraphe_t g) { return 0; }
+int diametre(pgraphe_t g) { // se base sur l'utilisation de la fonction excentricite
+  int max = -1;
+  int e;
+  psommet_t s = g;
+  while(s != NULL){
+    e = excentricite(g, s->label);
+    if(e > max){
+      max = e;
+    }
+    s = s->sommet_suivant;
+  }
+  return max;
+}

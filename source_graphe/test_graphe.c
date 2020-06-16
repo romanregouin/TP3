@@ -93,6 +93,8 @@ int main(int argc, char** argv) {
          degre_sortant_sommet(g, chercher_sommet(g, label)));
   printf("Degre maximal du graphe : %d \n", degre_maximal_graphe(g));
   printf("Degre minimal du graphe : %d \n", degre_minimal_graphe(g));
+  printf("Exentricite du sommet %d : %d \n", label, excentricite(g,label));
+  printf("Diametre du graphe : %d \n", diametre(g));
 
   if (regulier(g)) printf("Le graphe est Regulier !  \n");
   if (independant(g)) printf("Le graphe est Independant ! \n");
