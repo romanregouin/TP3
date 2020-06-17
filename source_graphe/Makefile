@@ -7,7 +7,7 @@ EXE = test_graphe
 all: $(EXE)
 
 test_graphe: $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $<

@@ -498,11 +498,74 @@ int simple(pchemin_t c) {
     arcCourant = arcCourant->arc_suivant;
     indice += 2;
   }
-
   return 1;
 }
 
-int eulerien(pgraphe_t g, pchemin_t c) { return 0; }
+listeArcV2 creerListeArcV2(pgraphe_t g){
+  //listeArcV2 l = malloc(sizeof(listeArcV2));
+  listeArcV2 l = NULL;
+  psommet_t sommetCourant = g;
+  parc_t arcCourant = NULL;
+  while(sommetCourant!=NULL){
+    arcCourant = sommetCourant->liste_arcs;
+    while(arcCourant!=NULL){
+      l = ajouterArcV2(l,sommetCourant->label,arcCourant->dest->label);
+      arcCourant = arcCourant->arc_suivant;
+    }
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  return l;
+}
+
+listeArcV2 ajouterArcV2(listeArcV2 l, int start, int end){
+  arcV2_t* courant = l;
+  arcV2_t* new = (arcV2_t*)malloc(sizeof(arcV2_t));
+  new->start = start;
+  new->end = end;
+  new->suivant = NULL;
+  if(l==NULL){
+    l = new;
+    return l;
+  }
+  while(courant->suivant!=NULL){
+    courant = courant->suivant;
+  }
+  courant->suivant = new;
+  return l;
+}
+
+listeArcV2 supprimerArcV2(listeArcV2 l, int start, int end){
+  arcV2_t* courant = l;
+  if(l==NULL){
+    return l;
+  }
+  if((courant->start == start) && (courant->end == end)){
+    l = courant->suivant;
+    return l;
+  }
+  while(courant->suivant != NULL){
+    if((courant->suivant->start == start) && (courant->suivant->end == end)){
+      courant->suivant = courant->suivant->suivant;
+      return l;
+    }
+    courant = courant->suivant;
+  }
+  return l;
+}
+
+int eulerien (pgraphe_t g, pchemin_t c){
+  listeArcV2 l = creerListeArcV2(g);
+  parc_t courantArc = c->arcs;
+  int start = c->start->label;
+  int end = -1;
+  while(courantArc!=NULL){
+    end = courantArc->dest->label;
+    l = supprimerArcV2(l,start,end);
+    start = end;
+    courantArc = courantArc->arc_suivant;
+  }
+  return l==NULL;
+}
 
 int hamiltonien(pgraphe_t g, pchemin_t c) {
   // initialise le champ traite a 0 pour chaque sommet pour pouvoir reperer ceux

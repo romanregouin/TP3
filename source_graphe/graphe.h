@@ -44,6 +44,18 @@ typedef struct chemin {
   parc_t arcs;
 } chemin_t, *pchemin_t;
 
+typedef struct arcV2 {
+  int start;
+  int end;
+  struct arcV2* suivant;
+} arcV2_t, *listeArcV2;
+
+listeArcV2 creerListeArcV2(pgraphe_t g);
+
+listeArcV2 supprimerArcV2(listeArcV2 l, int start, int end);
+
+listeArcV2 ajouterArcV2(listeArcV2 l, int start, int end);
+
 psommet_t chercher_sommet(pgraphe_t g, int label);
 
 void ajouter_arc(psommet_t o, psommet_t d, int distance);
