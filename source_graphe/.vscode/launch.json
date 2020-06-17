@@ -10,8 +10,8 @@
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "args": [
-                "data/test_simple",
-                "1"
+                "data/gr0",
+                "0"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

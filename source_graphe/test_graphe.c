@@ -50,11 +50,11 @@ int main(int argc, char** argv) {
 
   if (complet(g)) printf("Le graphe est Complet ! \n");
 
-  int* labels = malloc(6 * sizeof(int));
-  /*labels[0] = 0;
-  labels[1] = 2;
-  labels[2] = 8;
-  labels[3] = 5;
+  int* labels = malloc(4 * sizeof(int));
+  labels[0] = 0;
+  labels[1] = 1;
+  labels[2] = 2;
+  labels[3] = 0;
 
   pchemin_t chemin = creerChemin(g, labels, 4);
 
@@ -66,8 +66,7 @@ int main(int argc, char** argv) {
   if (simple(chemin)) {
     printf("Le chemin est simple\n");
   }
-*/
-  labels[0] = 1;
+  /*labels[0] = 1;
   labels[1] = 2;
   labels[2] = 4;
   labels[3] = 1;
@@ -83,7 +82,7 @@ int main(int argc, char** argv) {
   }
   if (simple(chemin)) {
     printf("Le chemin est simple\n");
-  }
+  }*/
 
   printf("La distance entre %d et %d est de %d \n", labels[0], labels[1],
          distance(g, labels[0], labels[1]));
@@ -98,6 +97,10 @@ int main(int argc, char** argv) {
 
   if (hamiltonien(g,chemin)) {
     printf("Le chemin est hamiltonien\n");
+  }
+
+  if(eulerien(g,chemin)){
+    printf("Le chemin est eulerien\n");
   }
 
   if (regulier(g)) printf("Le graphe est Regulier !  \n");
