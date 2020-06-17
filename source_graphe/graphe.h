@@ -92,9 +92,9 @@ int elementaire (pchemin_t c);
 
 int simple (pchemin_t c);
 
-int eulerien (pchemin_t c);
+int eulerien (pgraphe_t g, pchemin_t c);
 
-int hamiltonien (pchemin_t c);
+int hamiltonien (pgraphe_t g, pchemin_t c);
 
 int graphe_eulerien (pgraphe_t g);
 

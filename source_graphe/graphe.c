@@ -4,13 +4,14 @@
   (Pas de contrainte sur le nombre de noeuds des  graphes)
 */
 
+#include "graphe.h"
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "file.h"
 #include "pile.h"
-#include "graphe.h"
 
 psommet_t chercher_sommet(pgraphe_t g, int label) {
   psommet_t s;
@@ -248,9 +249,9 @@ void afficher_graphe_profondeur(pgraphe_t g, int r) {
 }
 
 void algo_dijkstra(pgraphe_t g, int r) {
-  //initialisation des étiquettes pour gerer de multiple appel a algo_dijkstra
+  // initialisation des étiquettes pour gerer de multiple appel a algo_dijkstra
   psommet_t courant = g;
-  while(courant!=NULL){
+  while (courant != NULL) {
     courant->etiq = INT_MAX;
     courant->traite = 0;
     courant = courant->sommet_suivant;
@@ -414,11 +415,12 @@ int regulier(pgraphe_t g) {
   placer les fonctions de l'examen 2017 juste apres
 */
 
-//suppose que les label sont existant dans le graphe et que la suite de labels est accesible via des arcs
-pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
+// suppose que les label sont existant dans le graphe et que la suite de labels
+// est accesible via des arcs
+pchemin_t creerChemin(pgraphe_t g, int* labels, int nb) {
   pchemin_t chemin = (chemin_t*)malloc(sizeof(chemin_t));
   psommet_t sommetCourant = g;
-  while(sommetCourant->label!=labels[0]){
+  while (sommetCourant->label != labels[0]) {
     sommetCourant = sommetCourant->sommet_suivant;
   }
   chemin->start = sommetCourant;
@@ -426,9 +428,9 @@ pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
   int nbSommetTraite = 1;
   parc_t parc = NULL;
   parc_t arcCourant = sommetCourant->liste_arcs;
-  while(nbSommetTraite<nb){
+  while (nbSommetTraite < nb) {
     parc = (parc_t)malloc(sizeof(arc_t));
-    while(arcCourant->dest->label!=labels[nbSommetTraite]){
+    while (arcCourant->dest->label != labels[nbSommetTraite]) {
       arcCourant = arcCourant->arc_suivant;
     }
     parc->arc_suivant = NULL;
@@ -436,10 +438,10 @@ pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
     parc->dest = arcCourant->dest;
     parc->poids = arcCourant->poids;
     parc_t tmp = chemin->arcs;
-    if(tmp==NULL){
+    if (tmp == NULL) {
       chemin->arcs = parc;
-    }else{
-      while(tmp->arc_suivant!=NULL){
+    } else {
+      while (tmp->arc_suivant != NULL) {
         tmp = tmp->arc_suivant;
       }
       tmp->arc_suivant = parc;
@@ -451,38 +453,51 @@ pchemin_t creerChemin(pgraphe_t g, int* labels, int nb){
   return chemin;
 }
 
-void printChemin(pchemin_t c){
+void printChemin(pchemin_t c) {
   printf("Chemin de longeur %d : %d", longueur(c), c->start->label);
   parc_t courant = c->arcs;
-  for(int i=0;i<c->nb-1;i++){
+  for (int i = 0; i < c->nb - 1; i++) {
     printf(" -(%d)> %d", courant->poids, courant->dest->label);
     courant = courant->arc_suivant;
   }
   printf("\n");
 }
 
-int elementaire (pchemin_t c){
+int elementaire(pchemin_t c) {
   int* alreadySeen = malloc(sizeof(int));
   int i = 1;
   alreadySeen[0] = c->start->label;
   parc_t arcCourant = c->arcs;
-  while(arcCourant!=NULL){
-    for(int j=0;j<i;j++){
-      if(alreadySeen[j]==arcCourant->dest->label){
+  while (arcCourant != NULL) {
+    for (int j = 0; j < i; j++) {
+      if (alreadySeen[j] == arcCourant->dest->label) {
         return 0;
       }
     }
     i++;
-    alreadySeen = realloc(alreadySeen,i*sizeof(int));
-    alreadySeen[i-1] = arcCourant->dest->label;
+    alreadySeen = realloc(alreadySeen, i * sizeof(int));
+    alreadySeen[i - 1] = arcCourant->dest->label;
     arcCourant = arcCourant->arc_suivant;
   }
   return 1;
 }
 
-int simple (pchemin_t c){
-  return 0;
-}
+int simple(pchemin_t c) {
+  int tab[c->nb * 2];
+  int indice = 0;
+  parc_t arcCourant = c->arcs;
+  int sommet = c->start->label;
+  while (arcCourant != NULL) {
+    tab[indice] = sommet;
+    tab[indice + 1] = arcCourant->dest->label;
+    for (int i = 0; i < indice; i++) {
+      if (tab[2 * i] == sommet && tab[2 * i + 1] == arcCourant->dest->label)
+        return 0;
+    }
+    sommet = arcCourant->dest->label;
+    arcCourant = arcCourant->arc_suivant;
+    indice += 2;
+  }
 
 int eulerien (pgraphe_t g, pchemin_t c){
   psommet_t sommet = g;
@@ -497,37 +512,79 @@ int eulerien (pgraphe_t g, pchemin_t c){
   }
 }
 
-int hamiltonien (pchemin_t c){
-  return 0;
-}
+int eulerien(pgraphe_t g, pchemin_t c) { return 0; }
 
-int graphe_eulerien (pgraphe_t g){
-  return 0;
-}
+int hamiltonien(pgraphe_t g, pchemin_t c) {
+  //initialise le champ traite a 0 pour chaque sommet pour pouvoir reperer ceux faisant parti du chemin ou non
+  psommet_t sommetCourant = g;
+  while (sommetCourant != NULL) {
+    sommetCourant->traite = 0;
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  //parcours du chemin en traitant les sommets rencontrés
+  sommetCourant = c->start;
+  sommetCourant->traite = 1;
+  parc_t arcCourant = c->arcs;
+  while(arcCourant != NULL){
+    arcCourant->dest->traite = 1;
+    arcCourant = arcCourant->arc_suivant;
+  }
+  //recherche sommet non traite
+  sommetCourant = g;
+  while (sommetCourant != NULL) {
+    if(!sommetCourant->traite){
+      return 0;
+    }
+    sommetCourant = sommetCourant->sommet_suivant;
+  }
+  return 1;
+ }
 
-int graphe_hamiltonien (pgraphe_t g){
-  return 0;
-}
+int graphe_eulerien(pgraphe_t g) { return 0; }
 
-int longueur (pchemin_t c){
+int graphe_hamiltonien(pgraphe_t g) { return 0; }
+
+int longueur(pchemin_t c) {
   int len = 0;
   parc_t courant = c->arcs;
-  for(int i=0;i<c->nb-1;i++){
+  for (int i = 0; i < c->nb - 1; i++) {
     len += courant->poids;
     courant = courant->arc_suivant;
   }
   return len;
 }
 
-int distance (pgraphe_t g, int label1, int label2){
-  algo_dijkstra(g,label1);
-  return (chercher_sommet(g,label2)->etiq);
+int distance(pgraphe_t g, int label1, int label2) {
+  algo_dijkstra(g, label1);
+  return (chercher_sommet(g, label2)->etiq);
 }
 
-int excentricite (pgraphe_t g, int label){
-  return 0;
-}
+int excentricite(pgraphe_t g, int label) { // se base sur l'utilisation de la fonction distance
+  int max = -1;
+  int d;
+  psommet_t s = g;
+  while(s != NULL){
+    if(s->label != label){
+      d = distance(g, label, s->label);
+      if(d > max && d < INT_MAX){ // car distance retourne INT_MAX s'il n'y a pas de chemin allant de label a s
+        max = d;
+      }
+    }
+    s = s->sommet_suivant;
+  }
+  return max;
+ }
 
-int diametre (pgraphe_t g){
-  return 0;
+int diametre(pgraphe_t g) { // se base sur l'utilisation de la fonction excentricite
+  int max = -1;
+  int e;
+  psommet_t s = g;
+  while(s != NULL){
+    e = excentricite(g, s->label);
+    if(e > max){
+      max = e;
+    }
+    s = s->sommet_suivant;
+  }
+  return max;
 }
