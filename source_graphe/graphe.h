@@ -84,29 +84,29 @@ void debugDijikstra(pgraphe_t g, int r);
 
 int complet(pgraphe_t g);
 
-pchemin_t creerChemin(pgraphe_t g, int* labels, int nb);
+pchemin_t creerChemin(pgraphe_t g, int *labels, int nb);
 
 void printChemin(pchemin_t c);
 
-int elementaire (pchemin_t c);
+int elementaire(pchemin_t c);
 
-int simple (pchemin_t c);
+int simple(pchemin_t c);
 
-int eulerien (pgraphe_t g, pchemin_t c);
+int eulerien(pgraphe_t g, pchemin_t c);
 
-int hamiltonien (pgraphe_t g, pchemin_t c);
+int hamiltonien(pgraphe_t g, pchemin_t c);
 
-int graphe_eulerien (pgraphe_t g);
+int graphe_eulerien(pgraphe_t g);
 
-int graphe_hamiltonien (pgraphe_t g);
+int graphe_hamiltonien(pgraphe_t g);
 
-int distance (pgraphe_t g, int label1, int label2);
+int distance(pgraphe_t g, int label1, int label2);
 
-int excentricite (pgraphe_t g, int label);
+int excentricite(pgraphe_t g, int label);
 
-int longueur (pchemin_t c);
+int longueur(pchemin_t c);
 
-int diametre (pgraphe_t g);
+int diametre(pgraphe_t g);
 
 int degre_sortant_sommet(pgraphe_t g, psommet_t s);
 
@@ -121,4 +121,6 @@ int independant(pgraphe_t g);
 int complet(pgraphe_t g);
 
 int regulier(pgraphe_t g);
+
+void reinit_graphe(g);
 #endif

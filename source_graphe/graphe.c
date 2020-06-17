@@ -505,34 +505,90 @@ int simple(pchemin_t c) {
 int eulerien(pgraphe_t g, pchemin_t c) { return 0; }
 
 int hamiltonien(pgraphe_t g, pchemin_t c) {
-  //initialise le champ traite a 0 pour chaque sommet pour pouvoir reperer ceux faisant parti du chemin ou non
+  // initialise le champ traite a 0 pour chaque sommet pour pouvoir reperer ceux
+  // faisant parti du chemin ou non
   psommet_t sommetCourant = g;
   while (sommetCourant != NULL) {
     sommetCourant->traite = 0;
     sommetCourant = sommetCourant->sommet_suivant;
   }
-  //parcours du chemin en traitant les sommets rencontrés
+  // parcours du chemin en traitant les sommets rencontrés
   sommetCourant = c->start;
   sommetCourant->traite = 1;
   parc_t arcCourant = c->arcs;
-  while(arcCourant != NULL){
+  while (arcCourant != NULL) {
     arcCourant->dest->traite = 1;
     arcCourant = arcCourant->arc_suivant;
   }
-  //recherche sommet non traite
+  // recherche sommet non traite
   sommetCourant = g;
   while (sommetCourant != NULL) {
-    if(!sommetCourant->traite){
+    if (!sommetCourant->traite) {
       return 0;
     }
     sommetCourant = sommetCourant->sommet_suivant;
   }
   return 1;
- }
+}
+
+void reinit_graphe(g) {
+  psommet_t courant = g;
+  while (courant != NULL) {
+    courant->etiq = INT_MAX;
+    courant->traite = 0;
+    courant->deja_parcouru = 0;
+    parc_t arc = courant->liste_arcs;
+    while (arc != NULL) {
+      arc->deja_parcouru = 0;
+      arc = arc->arc_suivant;
+    }
+    courant = courant->sommet_suivant;
+  }
+}
+
+int appartient_tab(psommet_t* tab, int taille, psommet_t g) {
+  for (int i = 0; i < taille; i++)
+    if (tab[i] == g) return 1;
+  return 0;
+}
 
 int graphe_eulerien(pgraphe_t g) { return 0; }
 
-int graphe_hamiltonien(pgraphe_t g) { return 0; }
+int graphe_hamiltonien(pgraphe_t g) {
+  int nb = nombre_sommets(g);
+  psommet_t tab[nb];
+  reinit_graphe(g);
+  psommet_t courant = g;
+  while (courant != NULL) {
+    tab[0] = courant;
+    if (parcours_hamiltonien(courant, tab, nb, 1)) return 1;
+    courant = courant->sommet_suivant;
+  }
+  return 0;
+}
+
+int parcours_hamiltonien(pgraphe_t g, psommet_t* tab, int taille,
+                         int parcouru) {
+  if (g == NULL) return 0;
+  if (parcouru == taille) return 1;
+  parc_t arc = g->liste_arcs;
+  int res;
+  int i = 0 $*;
+  while (arc != NULL) {
+    if (arc->dest->deja_parcouru < nombre_arcs(arc->dest)) {
+      g->deja_parcouru++;
+      if (appartient_tab(tab, parcouru, arc->dest))
+        res = parcours_hamiltonien(arc->dest, tab, taille, parcouru);
+      else {
+        tab[parcouru] = arc->dest;
+        res = parcours_hamiltonien(arc->dest, tab, taille, parcouru++);
+      }
+      if (res) return 1;
+    }
+    arc = arc->arc_suivant;
+  }
+  return 0;
+}
 
 int longueur(pchemin_t c) {
   int len = 0;
@@ -549,29 +605,33 @@ int distance(pgraphe_t g, int label1, int label2) {
   return (chercher_sommet(g, label2)->etiq);
 }
 
-int excentricite(pgraphe_t g, int label) { // se base sur l'utilisation de la fonction distance
+int excentricite(
+    pgraphe_t g,
+    int label) {  // se base sur l'utilisation de la fonction distance
   int max = -1;
   int d;
   psommet_t s = g;
-  while(s != NULL){
-    if(s->label != label){
+  while (s != NULL) {
+    if (s->label != label) {
       d = distance(g, label, s->label);
-      if(d > max && d < INT_MAX){ // car distance retourne INT_MAX s'il n'y a pas de chemin allant de label a s
+      if (d > max && d < INT_MAX) {  // car distance retourne INT_MAX s'il n'y a
+                                     // pas de chemin allant de label a s
         max = d;
       }
     }
     s = s->sommet_suivant;
   }
   return max;
- }
+}
 
-int diametre(pgraphe_t g) { // se base sur l'utilisation de la fonction excentricite
+int diametre(
+    pgraphe_t g) {  // se base sur l'utilisation de la fonction excentricite
   int max = -1;
   int e;
   psommet_t s = g;
-  while(s != NULL){
+  while (s != NULL) {
     e = excentricite(g, s->label);
-    if(e > max){
+    if (e > max) {
       max = e;
     }
     s = s->sommet_suivant;
