@@ -484,8 +484,17 @@ int simple (pchemin_t c){
   return 0;
 }
 
-int eulerien (pchemin_t c){
-  return 0;
+int eulerien (pgraphe_t g, pchemin_t c){
+  psommet_t sommet = g;
+  parc_t arc = g->liste_arcs;
+  int find = 0;
+  while(sommet!=NULL){
+    while(arc!=NULL){
+      if(arc->)
+      arc = arc->arc_suivant;
+    }
+    sommet = sommet->sommet_suivant;
+  }
 }
 
 int hamiltonien (pchemin_t c){

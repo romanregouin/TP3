@@ -5,10 +5,10 @@
 
 int main(int argc, char **argv) {
   pgraphe_t g;
-  // int nc;
+  int nc;
 
   if (argc != 3) {
-    fprintf(stderr, "Syntaxe : ./%s [FICHIER] [LABEL_SOMMET]\n", argv[0]);
+    fprintf(stderr, "Syntaxe : %s [FICHIER] [LABEL_SOMMET]\n", argv[0]);
     exit(-1);
   }
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
   nombre_sommets(g), nombre_arcs(g)); fflush(stdout);
   */
   ecrire_graphe(g);
-  /*
+  
   nc = colorier_graphe(g);
 
   printf("nombre chromatique graphe = %d\n", nc);
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
   printf("ROMAN Version : \n");
 
-  afficher_graphe_profondeur_V2(g, label);*/
+  afficher_graphe_profondeur_V2(g, label);
 
   printf("DIJIKSTRA : \n");
 
