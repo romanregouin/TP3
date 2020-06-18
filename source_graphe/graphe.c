@@ -711,15 +711,12 @@ int excentricite(
     pgraphe_t g,
     int label) {
   int max = -1;
-  int d;
-  algo_dijkstra(g, label); //calcul les distances entre le sommet considéré et chaque sommet du graphe
+  algo_dijkstra(g, label); //calcule les distances entre le sommet considéré et chaque sommet du graphe
   psommet_t s = g;
   while (s != NULL) {
     if (s->label != label) {
-      d = s->etiq;
-      if (d > max && d < INT_MAX) {  // car distance retourne INT_MAX s'il n'y a
-                                     // pas de chemin allant de label a s
-        max = d;
+      if (s->etiq > max) {
+        max = s->etiq;
       }
     }
     s = s->sommet_suivant;
