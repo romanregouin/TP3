@@ -711,13 +711,14 @@ int distance(pgraphe_t g, int label1, int label2) {
 
 int excentricite(
     pgraphe_t g,
-    int label) {  // se base sur l'utilisation de la fonction distance
+    int label) {
   int max = -1;
   int d;
+  algo_dijkstra(g, label); //calcul les distances entre le sommet considéré et chaque sommet du graphe
   psommet_t s = g;
   while (s != NULL) {
     if (s->label != label) {
-      d = distance(g, label, s->label);
+      d = s->etiq;
       if (d > max && d < INT_MAX) {  // car distance retourne INT_MAX s'il n'y a
                                      // pas de chemin allant de label a s
         max = d;
