@@ -94,7 +94,7 @@ void afficher_graphe_profondeur_V2(pgraphe_t g, int r);
 
 psommet_t traitement_dijkstra(pgraphe_t g, psommet_t sommet);
 
-void debugDijikstra(pgraphe_t g, int r);
+void debugDijkstra(pgraphe_t g, int r);
 
 int complet(pgraphe_t g);
 

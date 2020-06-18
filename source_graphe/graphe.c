@@ -266,7 +266,7 @@ void algo_dijkstra(pgraphe_t g, int r) {
   while (next != NULL) {
     next = traitement_dijkstra(g,next);
   }
-  debugDijikstra(g, r);
+  debugDijkstra(g, r);
   return;
 }
 
@@ -298,13 +298,11 @@ psommet_t traitement_dijkstra(pgraphe_t g, psommet_t sommet) {
   sommet->traite = 1;
   if (next_traitement == NULL){
     return nextSommetTraitement(g);
-  }else if(next_traitement->traite){
-    return next_traitement; //pas sur
   }
   return next_traitement;
 }
 
-void debugDijikstra(pgraphe_t g, int r) {
+void debugDijkstra(pgraphe_t g, int r) {
   psommet_t sommet_courant = g;
   printf("LANCE AVEC LE SOMMET : %d\n", r);
   while (sommet_courant != NULL) {
