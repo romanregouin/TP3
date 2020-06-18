@@ -134,5 +134,7 @@ int complet(pgraphe_t g);
 
 int regulier(pgraphe_t g);
 
-void reinit_graphe(g);
+void reinit_graphe(pgraphe_t g);
+
+int parcours_hamiltonien(pgraphe_t g, psommet_t* tab, int taille,int parcouru);
 #endif

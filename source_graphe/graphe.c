@@ -594,7 +594,7 @@ int hamiltonien(pgraphe_t g, pchemin_t c) {
   return 1;
 }
 
-void reinit_graphe(g) {
+void reinit_graphe(pgraphe_t g) {
   psommet_t courant = g;
   while (courant != NULL) {
     courant->etiq = INT_MAX;
@@ -660,7 +660,7 @@ int parcours_hamiltonien(pgraphe_t g, psommet_t* tab, int taille,
   if (parcouru == taille) return 1;
   parc_t arc = g->liste_arcs;
   int res;
-  int i = 0 $*;
+  //int i = 0;
   while (arc != NULL) {
     if (arc->dest->deja_parcouru < nombre_arcs(arc->dest)) {
       g->deja_parcouru++;
