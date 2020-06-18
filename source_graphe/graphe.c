@@ -629,6 +629,9 @@ int graphe_eulerien(pgraphe_t g) {
     degreeSortant = degre_sortant_sommet(g,courantSommet);
     if((degreeEntrant+degreeSortant)%2){
       nbSommetImpaire++;
+      if(!( (degreeEntrant+1==degreeSortant) || (degreeEntrant==degreeSortant+1) )){
+        return 0;
+      }
     }else if((degreeSortant-degreeEntrant)!=0){
       //si le degree du sommet est pair mais si le degree sortant est different du degree entrant
       return 0;
