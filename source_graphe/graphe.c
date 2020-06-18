@@ -262,19 +262,31 @@ void algo_dijkstra(pgraphe_t g, int r) {
     return;
   }
   start->etiq = 0;
-  psommet_t next = traitement_dijkstra(start);
+  psommet_t next = traitement_dijkstra(g,start);
   while (next != NULL) {
-    next = traitement_dijkstra(next);
+    next = traitement_dijkstra(g,next);
   }
   debugDijikstra(g, r);
   return;
 }
 
-psommet_t traitement_dijkstra(psommet_t sommet) {
+psommet_t nextSommetTraitement(pgraphe_t g){
+  psommet_t courantSommet = g;
+  while(courantSommet!=NULL){
+    if(!courantSommet->traite){
+      return courantSommet;
+    }
+    courantSommet = courantSommet->sommet_suivant;
+  }
+  return NULL;
+}
+
+psommet_t traitement_dijkstra(pgraphe_t g, psommet_t sommet) {
   parc_t arc_courant = sommet->liste_arcs;
   psommet_t next_traitement = NULL;
   while (arc_courant != NULL) {
-    if (arc_courant->dest->etiq > arc_courant->poids + sommet->etiq) {
+    //if (arc_courant->dest->etiq > arc_courant->poids + sommet->etiq) { si sommet->etiq = INTMAX alors sa passe dans les négatifs et fause tout
+    if (arc_courant->dest->etiq - arc_courant->poids > sommet->etiq) {  
       arc_courant->dest->etiq = arc_courant->poids + sommet->etiq;
       if ((next_traitement == NULL) ||
           (next_traitement->etiq > arc_courant->poids + sommet->etiq)) {
@@ -284,8 +296,10 @@ psommet_t traitement_dijkstra(psommet_t sommet) {
     arc_courant = arc_courant->arc_suivant;
   }
   sommet->traite = 1;
-  if (next_traitement == NULL || next_traitement->traite) {
-    return NULL;
+  if (next_traitement == NULL){
+    return nextSommetTraitement(g);
+  }else if(next_traitement->traite){
+    return next_traitement; //pas sur
   }
   return next_traitement;
 }

@@ -82,6 +82,8 @@ void afficher_graphe_largeur(pgraphe_t g, int r);
 
 void algo_dijkstra(pgraphe_t g, int r);
 
+psommet_t nextSommetTraitement(pgraphe_t g);
+
 void afficher_graphe_profondeur_rec(pgraphe_t g);
 
 void afficher_graphe_profondeur2(pgraphe_t g, int r);
@@ -90,7 +92,7 @@ void parcour_profondeur_V2(pgraphe_t g);
 
 void afficher_graphe_profondeur_V2(pgraphe_t g, int r);
 
-psommet_t traitement_dijkstra(psommet_t sommet);
+psommet_t traitement_dijkstra(pgraphe_t g, psommet_t sommet);
 
 void debugDijikstra(pgraphe_t g, int r);
 
