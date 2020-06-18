@@ -36,19 +36,23 @@ int main(int argc, char** argv) {
 
   ecrire_graphe_colorie(g);
 
-  printf("LIAM Version : \n");
+  printf("\nParcours profondeur LIAM Version : \n");
 
   afficher_graphe_profondeur2(g, label);
 
-  printf("ROMAN Version : \n");
+  printf("\nParcours profondeur ROMAN Version : \n");
 
   afficher_graphe_profondeur_V2(g, label);
 
-  printf("DIJIKSTRA : \n");
+  printf("\nParcours largeur :\n");
+
+  afficher_graphe_largeur(g,label);
+
+  printf("\nDIJIKSTRA : \n");
 
   algo_dijkstra(g, label);
 
-  if (complet(g)) printf("Le graphe est Complet ! \n");
+  if (complet(g)) printf("\nLe graphe est Complet ! \n");
 
   /*int* labels = malloc(4 * sizeof(int));
   labels[0] = 0;
@@ -95,19 +99,19 @@ int main(int argc, char** argv) {
     printf("Le chemin est eulerien\n");
   }*/
 
-  printf("Degre entrant du sommet %d : %d \n", label,
+  printf("\nDegre entrant du sommet %d : %d \n", label,
          degre_entrant_sommet(g, chercher_sommet(g, label)));
-  printf("Degre sortant du sommet %d : %d \n", label,
+  printf("\nDegre sortant du sommet %d : %d \n", label,
          degre_sortant_sommet(g, chercher_sommet(g, label)));
-  printf("Degre maximal du graphe : %d \n", degre_maximal_graphe(g));
-  printf("Degre minimal du graphe : %d \n", degre_minimal_graphe(g));
-  printf("Exentricite du sommet %d : %d \n", label, excentricite(g,label));
+  printf("\nDegre maximal du graphe : %d \n", degre_maximal_graphe(g));
+  printf("\nDegre minimal du graphe : %d \n\n", degre_minimal_graphe(g));
+  printf("Exentricite du sommet %d : %d \n\n", label, excentricite(g,label));
   printf("Diametre du graphe : %d \n", diametre(g));
 
-  if (regulier(g)) printf("Le graphe est Regulier !  \n");
-  if (independant(g)) printf("Le graphe est Independant ! \n");
+  if (regulier(g)) printf("\nLe graphe est Regulier !  \n");
+  if (independant(g)) printf("\nLe graphe est Independant ! \n");
   if (graphe_eulerien(g)){
-    printf("Le graphe est eulerien !\n");
+    printf("\nLe graphe est eulerien !\n");
   }
   return 0;
 }

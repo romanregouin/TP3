@@ -146,12 +146,13 @@ int colorier_graphe(pgraphe_t g) {
 }
 
 void afficher_graphe_largeur(pgraphe_t g, int r) {
+  reinit_graphe(g);
   pfile_t f = creer_file();
   psommet_t tmp = chercher_sommet(g, r);
   enfiler(f, tmp);
   while (!file_vide(f)) {
     tmp = defiler(f);
-    if (!tmp->deja_parcouru) printf("%d", tmp->label);
+    if (!tmp->deja_parcouru) printf("%d\n", tmp->label);
     tmp->deja_parcouru = 1;
     parc_t arc = tmp->liste_arcs;
     while (arc != NULL) {
