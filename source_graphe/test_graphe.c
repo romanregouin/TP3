@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 
   if (complet(g)) printf("Le graphe est Complet ! \n");
 
-  int* labels = malloc(4 * sizeof(int));
+  /*int* labels = malloc(4 * sizeof(int));
   labels[0] = 0;
   labels[1] = 1;
   labels[2] = 2;
@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
   if (simple(chemin)) {
     printf("Le chemin est simple\n");
   }
-  /*labels[0] = 1;
+  labels[0] = 1;
   labels[1] = 2;
   labels[2] = 4;
   labels[3] = 1;
@@ -82,7 +82,7 @@ int main(int argc, char** argv) {
   }
   if (simple(chemin)) {
     printf("Le chemin est simple\n");
-  }*/
+  }
 
   printf("La distance entre %d et %d est de %d \n", labels[0], labels[1],
          distance(g, labels[0], labels[1]));
@@ -101,10 +101,12 @@ int main(int argc, char** argv) {
 
   if(eulerien(g,chemin)){
     printf("Le chemin est eulerien\n");
-  }
+  }*/
 
   if (regulier(g)) printf("Le graphe est Regulier !  \n");
   if (independant(g)) printf("Le graphe est Independant ! \n");
-
+  if (graphe_eulerien(g)){
+    printf("Le graphe est eulerien !\n");
+  }
   return 0;
 }

@@ -593,7 +593,31 @@ int hamiltonien(pgraphe_t g, pchemin_t c) {
   return 1;
  }
 
-int graphe_eulerien(pgraphe_t g) { return 0; }
+/* si plusieurs sommets de degrée impaire alors faux
+si exactement 2 points de degrée impaire vrai si on prend comme debut du chemin le premier point et la fin le dernier point
+si tout les sommets sont de degré pair vrai
+ici les arcs sont orienté il faut donc que en plus d'avoir des sommet pair, avoir degrées sortant = degree entrant*/
+int graphe_eulerien(pgraphe_t g) {
+  int nbSommetImpaire = 0;
+  int degreeSortant = 0;
+  int degreeEntrant = 0;
+  psommet_t courantSommet = g;
+  while(courantSommet!=NULL){
+    degreeEntrant = degre_entrant_sommet(g,courantSommet);
+    degreeSortant = degre_sortant_sommet(g,courantSommet);
+    if((degreeEntrant+degreeSortant)%2){
+      nbSommetImpaire++;
+    }else if((degreeSortant-degreeEntrant)!=0){
+      //si le degree du sommet est pair mais si le degree sortant est different du degree entrant
+      return 0;
+    }
+    courantSommet = courantSommet->sommet_suivant;
+  }
+  if((nbSommetImpaire == 0) || (nbSommetImpaire == 2)){
+    return 1;
+  }
+  return 0;
+}
 
 int graphe_hamiltonien(pgraphe_t g) { return 0; }
 
